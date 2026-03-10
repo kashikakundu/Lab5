@@ -18,7 +18,7 @@ exports.handler = async function (event) {
       };
     }
 
-    let apiUrl = `https://api.spoonacular.com/recipes/findByIngredients?ingredients=${encodeURIComponent(ingredients)}&number=6&apiKey=${apiKey}`;
+    let apiUrl = `https://api.spoonacular.com/recipes/complexSearch?query=${encodeURIComponent(ingredients)}&number=6&apiKey=${apiKey}`;
 
     if (diet) {
       apiUrl += `&diet=${encodeURIComponent(diet)}`;
@@ -35,10 +35,10 @@ exports.handler = async function (event) {
 
     const data = await response.json();
 
-    const simplifiedRecipes = data.map((recipe) => ({
+    const simplifiedRecipes = data.results.map((recipe) => ({
       title: recipe.title,
       image: recipe.image,
-      usedIngredientCount: recipe.usedIngredientCount
+      usedIngredientCount: 0
     }));
 
     return {

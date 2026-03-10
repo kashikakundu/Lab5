@@ -19,9 +19,13 @@ form.addEventListener("submit", async (event) => {
 
   showMessage("Loading recipes...");
 
+  const apiBase = window.location.hostname === "localhost"
+    ? "/api/recipes"
+    : "/.netlify/functions/recipes";
+
   try {
     const response = await fetch(
-      `/.netlify/functions/recipes?ingredients=${encodeURIComponent(ingredients)}&diet=${encodeURIComponent(diet)}`
+      `${apiBase}?ingredients=${encodeURIComponent(ingredients)}&diet=${encodeURIComponent(diet)}`
     );
 
     if (!response.ok) {
@@ -69,12 +73,14 @@ function displayRecipes(recipes) {
     const title = document.createElement("h3");
     title.textContent = recipe.title || "Untitled Recipe";
 
-    const ingredients = document.createElement("p");
-    ingredients.classList.add("recipe-ingredients");
-    ingredients.textContent = `Used ingredients: ${recipe.usedIngredientCount ?? 0}`;
-
     cardBody.appendChild(title);
-    cardBody.appendChild(ingredients);
+
+    if (recipe.usedIngredientCount && recipe.usedIngredientCount > 0) {
+      const ingredients = document.createElement("p");
+      ingredients.classList.add("recipe-ingredients");
+      ingredients.textContent = `Used ingredients: ${recipe.usedIngredientCount}`;
+      cardBody.appendChild(ingredients);
+    }
 
     card.appendChild(image);
     card.appendChild(cardBody);

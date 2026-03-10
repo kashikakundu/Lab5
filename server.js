@@ -23,7 +23,7 @@ app.get("/api/recipes", async (req, res) => {
   }
 
   let apiUrl =
-    `https://api.spoonacular.com/recipes/findByIngredients?ingredients=${encodeURIComponent(ingredients)}&number=6&apiKey=${apiKey}`;
+    `https://api.spoonacular.com/recipes/complexSearch?query=${encodeURIComponent(ingredients)}&number=6&apiKey=${apiKey}`;
 
   if (diet) {
     apiUrl += `&diet=${encodeURIComponent(diet)}`;
@@ -38,14 +38,13 @@ app.get("/api/recipes", async (req, res) => {
 
     const data = await response.json();
 
-    const simplifiedRecipes = data.map((recipe) => ({
+    const simplifiedRecipes = data.results.map((recipe) => ({
       title: recipe.title,
       image: recipe.image,
-      usedIngredientCount: recipe.usedIngredientCount
+      usedIngredientCount: 0
     }));
 
     res.json(simplifiedRecipes);
-
   } catch (error) {
     console.error("Server error:", error.message);
     res.status(500).json({ error: "Failed to fetch recipes." });
