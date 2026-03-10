@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Recipe Recommender</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>Recipe Recommender</h1>
+    <p>Find recipes based on ingredients and diet preferences.</p>
+  </header>
+
+  <main>
+    <section class="search-section">
+      <h2>Search for Recipes</h2>
+
+      <form id="recipe-form">
+        <div class="form-group">
+          <label for="ingredients">Ingredients</label>
+          <input
+            type="text"
+            id="ingredients"
+            name="ingredients"
+            placeholder="Example: chicken, rice, tomato"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="diet">Diet Preference</label>
+          <select id="diet" name="diet">
+            <option value="">None</option>
+            <option value="vegetarian">Vegetarian</option>
+            <option value="vegan">Vegan</option>
+            <option value="gluten free">Gluten Free</option>
+            <option value="ketogenic">Ketogenic</option>
+          </select>
+        </div>
+
+        <button type="submit">Search Recipes</button>
+      </form>
+    </section>
+
+    <section class="status-section">
+      <p id="message" aria-live="polite"></p>
+    </section>
+
+    <section class="results-section">
+      <h2>Results</h2>
+      <div id="results" class="results-container"></div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
