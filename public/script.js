@@ -21,7 +21,7 @@ form.addEventListener("submit", async (event) => {
 
   try {
     const response = await fetch(
-      `/api/recipes?ingredients=${encodeURIComponent(ingredients)}&diet=${encodeURIComponent(diet)}`
+      `/.netlify/functions/recipes?ingredients=${encodeURIComponent(ingredients)}&diet=${encodeURIComponent(diet)}`
     );
 
     if (!response.ok) {
